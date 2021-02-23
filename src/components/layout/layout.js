@@ -10,6 +10,7 @@ export default function layout(props) {
             <nav className="nav-menu">
                 <h2>GLOBAL SHOP</h2>
                 <Clock />
+                <span> <Link to="/backend/admin">Admin Panel</Link></span>
                 <div className="cart">
                     Shopping Cart
                     <div className="drop-down">

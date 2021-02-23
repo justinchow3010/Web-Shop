@@ -1,4 +1,4 @@
-import { Main, Product } from './pages';
+import { Main, Product, Admin } from './pages';
 
 const routes = [
   {
@@ -11,6 +11,10 @@ const routes = [
     path: '/product',
     component: Product,
     breadcrumbName: 'Product'
+  },
+  {
+    path: '/backend/admin',
+    component: Admin
   },
 ];
 
