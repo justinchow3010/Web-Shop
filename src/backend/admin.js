@@ -6,22 +6,43 @@ export default class Admin extends React.Component {
     constructor() {
         super();
         this.state = {
-            CategoryName : ""
+            CategoryName : "",
+            ProductName : "",
+            price : 0,
+            description : ""
         };
     }
     
-    handleInput = async e => {
+    handleCategoryInput = async e => {
         await this.setState({
             CategoryName : e.target.value
         })
         //console.log(this.state.CategoryName)
     }
 
-    handleSumbit = e => {
+    handleCategorySumbit = e => {
         e.preventDefault();
         let formData = new FormData();
         formData.append("name", this.state.CategoryName);
-        const url = "../backend/admin.php";
+        const url = "/admin/category.php";
+        axios.post(url, formData)
+        .then (res=> console.log(res.data))
+        .catch (err => console.log(err));
+        console.log(this.state.CategoryName)
+    }
+
+    handleProductInput = async e => {
+        await this.setState({
+            ProductName : e.target.value
+        })
+        //console.log(this.state.CategoryName)
+    }
+
+    handleProductSumbit = e => {
+        e.preventDefault();
+        let formData = new FormData();
+        formData.append("name", this.state.CategoryName, "price". this.state.price, "description", this.state.description);
+        const url = "/admin/product.php";
         axios.post(url, formData)
         .then (res=> console.log(res.data))
         .catch (err => console.log(err));
@@ -91,11 +112,11 @@ export default class Admin extends React.Component {
                             <div className="mb-3">
                                 <label htmlFor="username">Name*</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" id="CategoryName" placeholder="Name" required="" onChange={this.handleInput}></input>
+                                    <input type="text" className="form-control" id="CategoryName" placeholder="Name" required="" onChange={this.handleCategoryInput}></input>
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-dark" onClick={this.handleSumbit}>Submit</button>
+                                <button className="btn btn-dark" onClick={this.handleCategorySumbit}>Submit</button>
                             </div>
                         </form>
                     </div>
