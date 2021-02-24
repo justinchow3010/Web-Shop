@@ -9,13 +9,25 @@ export default class Admin extends React.Component {
             CategoryName : "",
             ProductName : "",
             price : 0,
-            description : ""
+            description : "",
+            list : []
         };
     }
     
-    handleCategoryInput = async e => {
+    componentDidMount() {
+        const url = "/admin/product.php";
+        axios.get(url)
+        .then ( res=> {console.log(res.data);
+             this.setState({list : res.data});
+        })
+        .catch (error => console.log(error));
+        console.log(this.state.list);
+    }
+
+    handleInput = async e => {
         await this.setState({
-            CategoryName : e.target.value
+            ...this.state,
+            [e.target.name] : e.target.value
         })
         //console.log(this.state.CategoryName)
     }
@@ -29,13 +41,6 @@ export default class Admin extends React.Component {
         .then (res=> console.log(res.data))
         .catch (err => console.log(err));
         console.log(this.state.CategoryName)
-    }
-
-    handleProductInput = async e => {
-        await this.setState({
-            ProductName : e.target.value
-        })
-        //console.log(this.state.CategoryName)
     }
 
     handleProductSumbit = e => {
@@ -64,28 +69,28 @@ export default class Admin extends React.Component {
                                 <div className="input-group">
                                     <select className="custom-select" id="inputGroupSelect01">
                                         <option value>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        {this.state.list.map((info, index) => {
+                                            return <option value={index}>{info.name}</option>
+                                        })}
                                     </select>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="username">Name*</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" id="ProductName" placeholder="Name" required=""></input>
+                                    <input type="text" className="form-control" name="ProductName" placeholder="Name" required=""></input>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="username">Price*</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" id="Price" placeholder="Price" required=""></input>
+                                    <input type="text" className="form-control" name="price" placeholder="Price" required=""></input>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="username">Description</label>
                                 <div className="input-group">
-                                    <textarea className="form-control" id="" rows="3"></textarea>
+                                    <textarea className="form-control" name="description" rows="3"></textarea>
                                 </div>
                             </div>
                             <div className="mb-3">
@@ -112,7 +117,7 @@ export default class Admin extends React.Component {
                             <div className="mb-3">
                                 <label htmlFor="username">Name*</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" id="CategoryName" placeholder="Name" required="" onChange={this.handleCategoryInput}></input>
+                                    <input type="text" className="form-control" id="CategoryName" placeholder="Name" required="" name="CategoryName" onChange={this.handleInput}></input>
                                 </div>
                             </div>
                             <div className="mb-3">
