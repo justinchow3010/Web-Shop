@@ -10,12 +10,14 @@ export default class Admin extends React.Component {
             ProductName : "",
             price : 0,
             description : "",
-            list : []
+            list : [],
+            productCatid : 0,
+            //image : ""
         };
     }
     
     componentDidMount() {
-        const url = "/admin/product.php";
+        const url = "/admin/category.php";
         axios.get(url)
         .then ( res=> {console.log(res.data);
              this.setState({list : res.data});
@@ -29,7 +31,8 @@ export default class Admin extends React.Component {
             ...this.state,
             [e.target.name] : e.target.value
         })
-        //console.log(this.state.CategoryName)
+        console.log(e.target.name);
+        console.log(e.target.value);
     }
 
     handleCategorySumbit = e => {
@@ -46,7 +49,11 @@ export default class Admin extends React.Component {
     handleProductSumbit = e => {
         e.preventDefault();
         let formData = new FormData();
-        formData.append("name", this.state.CategoryName, "price". this.state.price, "description", this.state.description);
+        formData.append("name", this.state.ProductName);
+        formData.append("price", this.state.price);
+        formData.append("description", this.state.description);
+        formData.append("category", this.state.productCatid);
+        //formData.append("image", this.state.image);
         const url = "/admin/product.php";
         axios.post(url, formData)
         .then (res=> console.log(res.data))
@@ -67,10 +74,10 @@ export default class Admin extends React.Component {
                             <div className="mb-3">
                                 <label htmlFor="username">Category*</label>
                                 <div className="input-group">
-                                    <select className="custom-select" id="inputGroupSelect01">
+                                    <select className="custom-select" name="productCatid" onChange={this.handleInput}>
                                         <option value>Choose...</option>
                                         {this.state.list.map((info, index) => {
-                                            return <option value={index}>{info.name}</option>
+                                            return <option value={info.catid}>{info.name}</option>
                                         })}
                                     </select>
                                 </div>
@@ -78,19 +85,19 @@ export default class Admin extends React.Component {
                             <div className="mb-3">
                                 <label htmlFor="username">Name*</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" name="ProductName" placeholder="Name" required=""></input>
+                                    <input type="text" className="form-control" name="ProductName" placeholder="Name" required="" onChange={this.handleInput}></input>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="username">Price*</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" name="price" placeholder="Price" required=""></input>
+                                    <input type="text" className="form-control" name="price" placeholder="Price" required="" onChange={this.handleInput}></input>
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="username">Description</label>
                                 <div className="input-group">
-                                    <textarea className="form-control" name="description" rows="3"></textarea>
+                                    <textarea className="form-control" name="description" rows="3" onChange={this.handleInput}></textarea>
                                 </div>
                             </div>
                             <div className="mb-3">
@@ -100,13 +107,13 @@ export default class Admin extends React.Component {
                                         <span className="input-group-text">Upload</span>
                                     </div>
                                     <div className="custom-file">
-                                        <input type="file" className="custom-file-input" id="inputGroupFile01"></input>
-                                        <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+                                        <input type="file" className="custom-file-input" name="image"></input>
+                                        <label className="custom-file-label" htmlFor="image">Choose one</label>
                                     </div>
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-dark">Submit</button>
+                                <button className="btn btn-dark" onClick={this.handleProductSumbit}>Submit</button>
                             </div>
                         </form>
                     </div>

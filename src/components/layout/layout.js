@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Clock from '../partials/clock';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 //layout
-export default function layout(props) {
+export default function Layout(props) {
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        const url = "/admin/category.php";
+        axios.get(url)
+        .then ( res=> {console.log(res.data);
+             setList(res.data);
+        })
+        .catch (error => console.log(error));
+        console.log(list);
+    }, [])
 
     return (
         <div className={props.className}>
@@ -40,9 +52,9 @@ export default function layout(props) {
                     </div>
                 </div>
                 <div className="category-list">
-                    <p><Link to="/">Shoes</Link></p>
-                    <p>T-shirt</p> {/*not made yet*/}
-                    <p>Trousers</p> {/*not made yet*/}
+                    {list.map((catName) => {
+                        return <p><Link>{catName.name}</Link></p>
+                    })}
                 </div>
             </nav>
 
