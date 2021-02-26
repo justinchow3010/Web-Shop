@@ -10,10 +10,11 @@ export default function Layout(props) {
     useEffect(() => {
         const url = "/admin/category.php";
         axios.get(url)
-        .then ( res=> {console.log(res.data);
-             setList(res.data);
-        })
-        .catch (error => console.log(error));
+            .then(res => {
+                console.log(res.data);
+                setList(res.data);
+            })
+            .catch(error => console.log(error));
         console.log(list);
     }, [])
 
@@ -53,18 +54,18 @@ export default function Layout(props) {
                 </div>
                 <div className="category-list">
                     {list.map((catName) => {
-                        return <p><Link>{catName.name}</Link></p>
+                        return <p><Link to={catName.name}>{catName.name}</Link></p>
                     })}
                 </div>
             </nav>
 
             <div className="wrap">
-                    {props.children}
+                {props.children}
                 <div className="sidebar-2">
                     Advetisment
                 </div>
             </div>
-            
+
             <footer className="text-muted"> All right reserved to Justin</footer>
         </div>
     )

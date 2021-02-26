@@ -1,4 +1,5 @@
-import { Main, Product, Admin } from './pages';
+import { Main, Product, Admin, Shoes } from './pages';
+//const { url, path } = useRouteMatch();
 
 const routes = [
   {
@@ -6,6 +7,20 @@ const routes = [
     component: Main,
     exact: true,
     breadcrumbName: 'Home'
+  },
+  {
+    path: '/shoes',
+    
+    component: Shoes,
+    breadcrumbName: 'Shoes',
+    routes: [
+      {
+        path: '/shoes/:id',
+        exact: true,
+        component: Product,
+        breadcrumbName: "product",
+      }
+    ]
   },
   {
     path: '/product',
