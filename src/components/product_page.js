@@ -43,12 +43,12 @@ function Item(props) {
                 <div className="product col-md-4">
                     <div className="card mb-5 border-0">
                         <Link to={`${url}/${list[index].pid}`}>
-                            <img src={shoe_pic} alt="Shoe" className="card-img-top"></img>
+                            <img src={`data:image/png;base64,${list[index].image}`} alt="Shoe" className="card-img-top list-img"></img>
                         </Link>
                         <hr className="mb-0" />
                         <div className="card-body pt-1">
                             <div className="card-text text-center">
-                                <Link to={`${url}/${list.pid}`}>{info.name}</Link>
+                                <Link to={`${url}/${list[index].pid}`}>{info.name}</Link>
                                 <p className="m-0">Price ${info.price}</p>
                                 <button className="btn btn-primary add">Add to cart</button>
                             </div>

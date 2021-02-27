@@ -16,7 +16,7 @@ export default class Admin extends React.Component {
             productId: 0,
             action: "",
             toChange: "",
-            image : ""
+            image: []
         };
     }
 
@@ -41,12 +41,16 @@ export default class Admin extends React.Component {
     }
 
     handleInput = async e => {
-        this.setState({
-            ...this.state,
-            [e.target.name]: e.target.value
-        })
+        if (e.target.name === "image") {
+            this.setState({ image: e.target.files[0] })
+            console.log(e.target.files[0]);
+        } else {
+            this.setState({
+                ...this.state,
+                [e.target.name]: e.target.value
+            })
+        }
         console.log(e.target.name);
-        console.log(e.target.value);
         console.log(this.state.action);
     }
 
@@ -60,7 +64,7 @@ export default class Admin extends React.Component {
         formData.append("toChange", this.state.toChange);
         const url = "/admin/category.php";
         axios.post(url, formData)
-            .then(res => { console.log(res.data); /*window.location.reload()*/ })
+            .then(res => { console.log(res.data); window.location.reload() })
             .catch(err => console.log(err));
         console.log(this.state.CategoryName)
     }
@@ -79,7 +83,7 @@ export default class Admin extends React.Component {
         formData.append("image", this.state.image);
         const url = "/admin/product.php";
         axios.post(url, formData)
-            .then(res => { console.log(res.data); /*window.location.reload()*/ })
+            .then(res => { console.log(res.data); window.location.reload() })
             .catch(err => console.log(err));
         console.log(this.state.CategoryName)
     }
@@ -131,7 +135,7 @@ export default class Admin extends React.Component {
                                     </div>
                                     <div className="custom-file">
                                         <input type="file" className="custom-file-input" name="image" onChange={this.handleInput}></input>
-                                        <label className="custom-file-label" htmlFor="image">Choose one</label>
+                                        {this.state.image == "" ? <label className="custom-file-label" htmlFor="image">Choose one</label> : <label className="custom-file-label" htmlFor="image">{this.state.image.name}</label>}
                                     </div>
                                 </div>
                             </div>
@@ -235,8 +239,8 @@ export default class Admin extends React.Component {
                                         <span className="input-group-text">Upload</span>
                                     </div>
                                     <div className="custom-file">
-                                        <input type="file" className="custom-file-input" name="image"></input>
-                                        <label className="custom-file-label" htmlFor="image">Choose one</label>
+                                        <input type="file" className="custom-file-input" name="image" onChange={this.handleInput}></input>
+                                        {this.state.image == "" ? <label className="custom-file-label" htmlFor="image">Choose one</label> : <label className="custom-file-label" htmlFor="image">{this.state.image.name}</label>}
                                     </div>
                                 </div>
                             </div>

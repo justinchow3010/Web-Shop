@@ -26,7 +26,7 @@ export default function Product(props) {
             <BreadCrumb locationPathname={props.location.pathname} />
             {list.map((info) => {
                 return <div className="product-info d-flex">
-                    <img src={shoe_pic} alt="Shoe" className="content-img"></img>
+                    <img src={`data:image/png;base64,${info.image}`} alt="Shoe" className="content-img"></img>
                     <div className="ml-4">
                         <h2>{info.name}</h2>
                         <p>Price: ${info.price}</p>
