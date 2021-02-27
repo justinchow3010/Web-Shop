@@ -21,7 +21,7 @@ export default function Layout(props) {
     return (
         <div className={props.className}>
             <nav className="nav-menu">
-                <h2>GLOBAL SHOP</h2>
+                <h2><Link to="/">GLOBAL SHOP</Link></h2>
                 <Clock />
                 <span> <Link to="/backend/admin">Admin Panel</Link></span>
                 <div className="cart">
@@ -54,7 +54,7 @@ export default function Layout(props) {
                 </div>
                 <div className="category-list">
                     {list.map((catName) => {
-                        return <p><Link to={catName.name}>{catName.name}</Link></p>
+                        return <p><Link to={`/${catName.name}`}>{catName.name}</Link></p>
                     })}
                 </div>
             </nav>

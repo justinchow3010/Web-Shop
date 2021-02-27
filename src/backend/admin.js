@@ -11,11 +11,12 @@ export default class Admin extends React.Component {
             price: 0,
             description: "",
             catList: [],
-            productList : [],
+            productList: [],
             productCatid: 0,
-            productId : 0,
+            productId: 0,
             action: "",
-            //image : ""
+            toChange: "",
+            image : ""
         };
     }
 
@@ -27,7 +28,7 @@ export default class Admin extends React.Component {
                 this.setState({ catList: res.data });
             })
             .catch(error => console.log(error));
-            console.log(this.state.catList);
+        console.log(this.state.catList);
 
         url = "/admin/product.php";
         axios.get(url)
@@ -40,40 +41,45 @@ export default class Admin extends React.Component {
     }
 
     handleInput = async e => {
-        await this.setState({
+        this.setState({
             ...this.state,
             [e.target.name]: e.target.value
         })
         console.log(e.target.name);
         console.log(e.target.value);
+        console.log(this.state.action);
     }
 
     handleCategorySumbit = e => {
         e.preventDefault();
+        this.handleInput(e);
         let formData = new FormData();
         formData.append("name", this.state.CategoryName);
-        formData.append("action", this.state.action);
+        formData.append("action", e.target.value);
         formData.append("category", this.state.productCatid);
+        formData.append("toChange", this.state.toChange);
         const url = "/admin/category.php";
         axios.post(url, formData)
-            .then(res => console.log(res.data))
+            .then(res => { console.log(res.data); /*window.location.reload()*/ })
             .catch(err => console.log(err));
         console.log(this.state.CategoryName)
     }
 
     handleProductSumbit = e => {
         e.preventDefault();
+        this.handleInput(e);
         let formData = new FormData();
         formData.append("name", this.state.ProductName);
         formData.append("price", this.state.price);
         formData.append("description", this.state.description);
         formData.append("category", this.state.productCatid);
-        formData.append("action", this.state.action);
+        formData.append("action", e.target.value);
         formData.append("pid", this.state.productId);
-        //formData.append("image", this.state.image);
+        formData.append("toChange", this.state.toChange);
+        formData.append("image", this.state.image);
         const url = "/admin/product.php";
         axios.post(url, formData)
-            .then(res => console.log(res.data))
+            .then(res => { console.log(res.data); /*window.location.reload()*/ })
             .catch(err => console.log(err));
         console.log(this.state.CategoryName)
     }
@@ -124,13 +130,13 @@ export default class Admin extends React.Component {
                                         <span className="input-group-text">Upload</span>
                                     </div>
                                     <div className="custom-file">
-                                        <input type="file" className="custom-file-input" name="image"></input>
+                                        <input type="file" className="custom-file-input" name="image" onChange={this.handleInput}></input>
                                         <label className="custom-file-label" htmlFor="image">Choose one</label>
                                     </div>
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-dark" name="action" value="addProduct" onClick={(e) => { this.handleInput(e); this.handleProductSumbit(e);}}>Submit</button>
+                                <button className="btn btn-dark" name="action" value="addProduct" onClick={this.handleProductSumbit}>Submit</button>
                             </div>
                         </form>
                     </div>
@@ -145,7 +151,7 @@ export default class Admin extends React.Component {
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-dark" name="action" value="addCat" onClick={(e) => { this.handleInput(e); this.handleCategorySumbit(e); }}>Submit</button>
+                                <button className="btn btn-dark" name="action" value="addCat" onClick={this.handleCategorySumbit}>Submit</button>
                             </div>
                         </form>
                     </div>
@@ -165,7 +171,7 @@ export default class Admin extends React.Component {
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-dark" name="action" value="deleteProduct" onClick={(e) => { this.handleInput(e); this.handleProductSumbit(e); }}>Submit</button>
+                                <button className="btn btn-dark" name="action" value="deleteProduct" onClick={this.handleProductSumbit}>Submit</button>
                             </div>
                         </form>
                     </div>
@@ -185,7 +191,78 @@ export default class Admin extends React.Component {
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <button className="btn btn-dark" name="action" value="deleteCat" onClick={(e) => { this.handleInput(e); this.handleCategorySumbit(e); }}>Submit</button>
+                                <button className="btn btn-dark" name="action" value="deleteCat" onClick={this.handleCategorySumbit}>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div className="col-md-6 order-md-1">
+                        <h4 className="mb-3">Update Product</h4>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="username">Which one to change?</label>
+                                <div className="input-group">
+                                    <select className="custom-select" name="toChange" onChange={this.handleInput}>
+                                        <option value>Choose...</option>
+                                        {this.state.productList.map((info, index) => {
+                                            return <option value={info.pid}>{info.name}</option>
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="username">Name*</label>
+                                <div className="input-group">
+                                    <input type="text" className="form-control" name="ProductName" placeholder="Name" required="" onChange={this.handleInput}></input>
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="username">Price*</label>
+                                <div className="input-group">
+                                    <input type="text" className="form-control" name="price" placeholder="Price" required="" onChange={this.handleInput}></input>
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="username">Description</label>
+                                <div className="input-group">
+                                    <textarea className="form-control" name="description" rows="3" onChange={this.handleInput}></textarea>
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="username">Image*</label>
+                                <div className="input-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">Upload</span>
+                                    </div>
+                                    <div className="custom-file">
+                                        <input type="file" className="custom-file-input" name="image"></input>
+                                        <label className="custom-file-label" htmlFor="image">Choose one</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <button className="btn btn-dark" name="action" value="updateProduct" onClick={this.handleProductSumbit}>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div className="col-md-6 order-md-1">
+                        <h4 className="mb-3">Update Category</h4>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="username">Choose one</label>
+                                <div className="input-group">
+                                    <select className="custom-select" name="toChange" onChange={this.handleInput}>
+                                        <option value>Choose...</option>
+                                        {this.state.catList.map((info, index) => {
+                                            return <option value={info.catid}>{info.name}</option>
+                                        })}
+                                    </select>
+                                    <input type="text" className="form-control" name="CategoryName" placeholder="Name" required="" onChange={this.handleInput}></input>
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <button className="btn btn-dark" name="action" value="updateCat" onClick={this.handleCategorySumbit}>Submit</button>
                             </div>
                         </form>
                     </div>

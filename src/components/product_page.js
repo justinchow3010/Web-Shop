@@ -9,13 +9,23 @@ import { renderRoutes } from 'react-router-config';
 import { useParams } from "react-router-dom";
 
 //main page
-function Shoes() {
+function ProductPage() {
+    return (
+        <Switch>
+            <Route path="/:cat" exact component={Item}/>
+            <Route path="/:cat/:id" component={Product} />
+        </Switch>
+    );
+}
+export default ProductPage;
+
+function Item(props) {
     const [list, setList] = useState([]);
     const items = [];
     const { url, path } = useRouteMatch();
 
     var type = url.substring(1);
-    console.log(type);
+    
     useEffect(() => {
         const url = "/admin/product.php";
         axios.get(url, { params: { catName: type } })
@@ -25,7 +35,7 @@ function Shoes() {
             })
             .catch(error => console.log(error));
         console.log(list);
-    }, [])
+    }, [url])
 
     {
         list.map((info, index) => {
@@ -49,28 +59,26 @@ function Shoes() {
             return items;
         })
     }
-
-    return (
-            <Switch>
-                <Route path="/shoes" exact render={(props) => (
-                    <Item {...props} items={items} />
-                )} />
-                <Route path="/shoes/:id" component={Product} />
-            </Switch>
-    );
-}
-export default Shoes;
-
-function Item(props) {
+    const onMatchedRoutes = (matchedRoutes) => {
+        return [
+            ...matchedRoutes.slice(0, -1),
+            {
+                route: {
+                    path: `/${type}`,
+                    breadcrumbName: type
+                }
+            }
+        ];
+    };
 
     return (
         <div className="mt-3 container">
-            <BreadCrumb locationPathname={props.location.pathname} />
+            <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />
             <div className="list-title">
                 <img src={list_title} alt="list-title"></img>
             </div>
             <div className="row">
-                {props.items}
+                {items}
             </div>
         </div>
     )
