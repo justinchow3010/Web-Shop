@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import shoe_pic from '../assets/images/shoe.png';
 import BreadCrumb from './partials/breadcrumb';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
@@ -7,48 +6,39 @@ import { useParams } from "react-router-dom";
 //product page
 export default function Product(props) {
     const [list, setList] = useState([]);
-    //const [catList, setCatList] = useState([]);
     let { id } = useParams();
+    const link = props.location.pathname.slice(1).split("/");
 
-    //console.log(id);
     useEffect(() => {
         const url = "/admin/product.php";
         axios.get(url, { params: { pid: id } })
             .then(res => {
-                //console.log(res.data);
                 setList(res.data);
             })
             .catch(error => console.log(error));
-
-        /*axios.get("/admin/category.php", { params: { catid : list.catid } })
-            .then(res => {
-                //console.log(res.data);
-                setCatList(res.data);
-            })
-            .catch(error => console.log(error));*/
     }, [])
 
-    /*const onMatchedRoutes = (matchedRoutes) => {
+    const onMatchedRoutes = (matchedRoutes) => {
         return [
             ...matchedRoutes.slice(0, 1),
             {
                 route: {
-                    path: "/",
-                    breadcrumbName: Product
+                    path: `/${link[0]}`,
+                    breadcrumbName: link[0]
                 }
             },
             {
                 route: {
-                    path: "/",
-                    breadcrumbName: id
+                    path: `/${link[0]}/${link[1]}`,
+                    breadcrumbName: link[1]
                 }
             }
         ];
-    };*/
+    };
 
     return (
         <div className="mt-3 container">
-            <BreadCrumb locationPathname={props.location.pathname} />
+            <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />
             {list.map((info) => {
                 return <div className="product-info d-flex">
                     <img src={`data:image/png;base64,${info.image}`} alt="Shoe" className="content-img"></img>

@@ -116,8 +116,9 @@ footer {
 }
 
 .product-info .content-img {
-    width: 400px;
-    height: 250px;
+    width: 500px;
+    height: 320px;
+    object-fit: contain;
 }
 
 .item-input {

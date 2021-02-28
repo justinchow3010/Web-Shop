@@ -4,7 +4,6 @@ import BreadCrumb from './partials/breadcrumb';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Product } from '../pages'
-import { useParams } from "react-router-dom";
 
 //main page
 function ProductPage() {
@@ -21,7 +20,7 @@ function Item(props) {
     const [list, setList] = useState([]);
     const items = [];
     //const [catList, setCatList] = useState([]);
-    const { url, path } = useRouteMatch();
+    const { url } = useRouteMatch();
     var type = url.substring(1);
     /*const para = useParams().cat;
     var inside = false;*/
@@ -34,7 +33,7 @@ function Item(props) {
                 setList(res.data);
             })
             .catch(error => console.log(error));
-        console.log(list);
+        //console.log(list);
         /*axios.get("/admin/category.php")
             .then(res => {
                 setCatList(res.data);
@@ -80,13 +79,19 @@ function Item(props) {
 
     return (
         <div className="mt-3 container">
-            <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />
-            <div className="list-title">
-                <img src={list_title} alt="list-title"></img>
-            </div>
-            <div className="row">
-                {items}
-            </div>
+            {console.log(items)}
+            {items.length > 0 ?
+                [
+                    <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />,
+                    <div className="list-title">
+                            <img src={list_title} alt="list-title"></img>
+                    </div>,
+                    <div className="row">
+                            {items}
+                    </div>,
+                ]
+                : <h1>.......</h1>}
+
         </div>
     )
 }

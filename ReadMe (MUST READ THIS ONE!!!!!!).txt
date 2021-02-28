@@ -13,7 +13,8 @@ Under src folder:
 ------------partials (the component which doesn't show up in every page)
 ------css (style sheets)
 ------sass (style sheets)
-
+------backend
+------------admin.js(admin panel)
 
 For Assignment 1,
 I used SCSS (a CSS preproccessor, an extension of CSS3) instead of CSS as it is more user-friendly. But you can still find the related style sheets for CSS under the CSS folder.
@@ -26,6 +27,29 @@ The hierarchical navigation menu is built dynamically which is under the BreadCr
 
 Please contact me if any problems arise.
 
+For Assignment 2,
+
+I create the admin panel in admin.js. And I create html request with axios.
+
+Axios will send request to category.php and prodct.php located in var/www/html/admin/.
+
+Product_page.js and product.js will fetch data from the databse.
+
+The database is called "backend" with categories and products table.
+
+The images are stored in the database as BLOB format.
+
+The breadcrumb is currently under development for dynamic naming, as it is not listed in the pharse two requirement, I will finsih it in the future. (DONE!!! UPDATED!!!)
+
+In the Admin Panel. we have ADD, UPDATE and DELETE functions. It is a must to fill in ALL REQUIRED information into the input field in this stage.
+
+For 2A,
+
+I configure all the corresponding filed and should be working as needed. Regarding "Disable directory index in Apache", I have already configure " Options -Indexes +FollowSymLinks" and the users cannot access the folders.
+However, the router has taken it as a link and I lead it to a not found page. For example like, /admin ,a folder in var/www/html, it will show not found in the page which will show "......".
+
+
+Please contact me if any problems arise.
 
 **************************************************************************************************
 # Getting Started with Create React App

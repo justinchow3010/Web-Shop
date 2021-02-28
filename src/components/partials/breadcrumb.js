@@ -29,8 +29,8 @@ export default function breadCrumb(props) {
             {matchedRoutes.map((matchRoute, i) => {
                 const { path, breadcrumbName } = matchRoute.route;
                 const isActive = path === props.locationPathname;
-                console.log(props.locationPathname);
-                console.log(path);
+                //console.log(props.locationPathname);
+                //console.log(path);
                 return isActive ? (
                     <BreadcrumbItem active key={i} >{breadcrumbName}</BreadcrumbItem>
                 ) : (

@@ -15,12 +15,12 @@ const routes = [
     component: Admin
   },
   {
-    path: `${rootPath}/:cat`,
+    path: `${rootPath}/:catid`,
     component: ProductPage,
     breadcrumbName: "Category",
     routes: [
       {
-        path: `${rootPath}/:cat/:id`,
+        path: `${rootPath}/:catid/:id`,
         exact: true,
         component: Product,
         breadcrumbName: "Product",
