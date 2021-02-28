@@ -138,6 +138,10 @@ export default class Admin extends React.Component {
                                         {this.state.image == "" ? <label className="custom-file-label" htmlFor="image">Choose one</label> : <label className="custom-file-label" htmlFor="image">{this.state.image.name}</label>}
                                     </div>
                                 </div>
+                                <div>
+                                    <label htmlFor="username">Preview</label>
+                                    {this.state.image != "" ? <img src={URL.createObjectURL(this.state.image)} alt="product" className="list-img"></img> : ""}
+                                </div>
                             </div>
                             <div className="mb-3">
                                 <button className="btn btn-dark" name="action" value="addProduct" onClick={this.handleProductSumbit}>Submit</button>
@@ -204,12 +208,13 @@ export default class Admin extends React.Component {
                         <h4 className="mb-3">Update Product</h4>
                         <form>
                             <div className="mb-3">
+                                <p>Fill in all infomation or it will get empty.</p>
                                 <label htmlFor="username">Which one to change?</label>
                                 <div className="input-group">
                                     <select className="custom-select" name="toChange" onChange={this.handleInput}>
                                         <option value>Choose...</option>
                                         {this.state.productList.map((info, index) => {
-                                            return <option value={info.pid}>{info.name}</option>
+                                            return <option value={info.pid}>{info.name}, ${info.price}, {info.description}</option>
                                         })}
                                     </select>
                                 </div>
@@ -242,6 +247,10 @@ export default class Admin extends React.Component {
                                         <input type="file" className="custom-file-input" name="image" onChange={this.handleInput}></input>
                                         {this.state.image == "" ? <label className="custom-file-label" htmlFor="image">Choose one</label> : <label className="custom-file-label" htmlFor="image">{this.state.image.name}</label>}
                                     </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="username">Preview</label>
+                                    {this.state.image != "" ? <img src={URL.createObjectURL(this.state.image)} alt="product" className="list-img"></img> : ""}
                                 </div>
                             </div>
                             <div className="mb-3">

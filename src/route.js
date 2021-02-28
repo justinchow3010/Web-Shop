@@ -23,9 +23,12 @@ const routes = [
         path: `${rootPath}/:cat/:id`,
         exact: true,
         component: Product,
-        breadcrumbName: "product",
+        breadcrumbName: "Product",
       }
     ]
+  },
+  {
+    path : "*"
   }
 ];
 

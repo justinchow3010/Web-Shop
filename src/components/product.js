@@ -7,19 +7,44 @@ import { useParams } from "react-router-dom";
 //product page
 export default function Product(props) {
     const [list, setList] = useState([]);
+    //const [catList, setCatList] = useState([]);
     let { id } = useParams();
 
-    console.log(id);
+    //console.log(id);
     useEffect(() => {
         const url = "/admin/product.php";
         axios.get(url, { params: { pid: id } })
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 setList(res.data);
             })
             .catch(error => console.log(error));
-        console.log(list);
+
+        /*axios.get("/admin/category.php", { params: { catid : list.catid } })
+            .then(res => {
+                //console.log(res.data);
+                setCatList(res.data);
+            })
+            .catch(error => console.log(error));*/
     }, [])
+
+    /*const onMatchedRoutes = (matchedRoutes) => {
+        return [
+            ...matchedRoutes.slice(0, 1),
+            {
+                route: {
+                    path: "/",
+                    breadcrumbName: Product
+                }
+            },
+            {
+                route: {
+                    path: "/",
+                    breadcrumbName: id
+                }
+            }
+        ];
+    };*/
 
     return (
         <div className="mt-3 container">

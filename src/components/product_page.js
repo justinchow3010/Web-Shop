@@ -1,18 +1,16 @@
 import list_title from '../assets/images/list-title.jpg';
-import shoe_pic from '../assets/images/shoe.png';
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import BreadCrumb from './partials/breadcrumb';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Product } from '../pages'
-import { renderRoutes } from 'react-router-config';
 import { useParams } from "react-router-dom";
 
 //main page
 function ProductPage() {
     return (
         <Switch>
-            <Route path="/:cat" exact component={Item}/>
+            <Route path="/:cat" exact component={Item} />
             <Route path="/:cat/:id" component={Product} />
         </Switch>
     );
@@ -22,19 +20,27 @@ export default ProductPage;
 function Item(props) {
     const [list, setList] = useState([]);
     const items = [];
+    //const [catList, setCatList] = useState([]);
     const { url, path } = useRouteMatch();
-
     var type = url.substring(1);
-    
+    /*const para = useParams().cat;
+    var inside = false;*/
+
     useEffect(() => {
         const url = "/admin/product.php";
         axios.get(url, { params: { catName: type } })
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 setList(res.data);
             })
             .catch(error => console.log(error));
         console.log(list);
+        /*axios.get("/admin/category.php")
+            .then(res => {
+                setCatList(res.data);
+            })
+            .catch(error => console.log(error));
+        if (catList.includes(para)) inside = true;*/
     }, [url])
 
     {
@@ -59,6 +65,7 @@ function Item(props) {
             return items;
         })
     }
+
     const onMatchedRoutes = (matchedRoutes) => {
         return [
             ...matchedRoutes.slice(0, -1),
