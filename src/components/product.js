@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import BreadCrumb from './partials/breadcrumb';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import AddToCartButon from './partials/addto_cart_button'
 
 //product page
 export default function Product(props) {
     const [list, setList] = useState([]);
-    let { id } = useParams();
+    var { id } = useParams();
     const link = props.location.pathname.slice(1).split("/");
 
     useEffect(() => {
@@ -37,15 +38,15 @@ export default function Product(props) {
     };
 
     return (
-        <div className="mt-3 container">
+        <div className="container">
             <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />
-            {list.map((info) => {
+            {list.map((info, index) => {
                 return <div className="product-info d-flex">
                     <img src={`data:image/png;base64,${info.image}`} alt="Shoe" className="content-img"></img>
                     <div className="ml-4">
                         <h2>{info.name}</h2>
                         <p>Price: ${info.price}</p>
-                        <button className="btn btn-primary add">Add to cart</button>
+                        <AddToCartButon pid={id} />
                         <div>Description: <p>{info.description}</p> </div>
                     </div>
                 </div>

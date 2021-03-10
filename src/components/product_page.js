@@ -4,6 +4,8 @@ import BreadCrumb from './partials/breadcrumb';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Product } from '../pages'
+import EventEmitter from './tools/event_emitter'
+import AddToCartButon from './partials/addto_cart_button'
 
 //main page
 function ProductPage() {
@@ -55,7 +57,7 @@ function Item(props) {
                             <div className="card-text text-center">
                                 <Link to={`${url}/${list[index].pid}`}>{info.name}</Link>
                                 <p className="m-0">Price ${info.price}</p>
-                                <button className="btn btn-primary add">Add to cart</button>
+                                <AddToCartButon pid={info.pid} />
                             </div>
                         </div>
                     </div>
@@ -63,7 +65,27 @@ function Item(props) {
             );
             return items;
         })
-    }
+    }//production
+
+    /*{
+        items.push(
+            <div className="product col-md-4">
+                <div className="card mb-5 border-0">
+                    <Link to="">
+                        <img src="" alt="Shoe" className="card-img-top list-img"></img>
+                    </Link>
+                    <hr className="mb-0" />
+                    <div className="card-body pt-1">
+                        <div className="card-text text-center">
+                            <Link to="">dsdsds</Link>
+                            <p className="m-0">Price $23232323</p>
+                            <AddToCartButon list={list} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }///testing*/
 
     const onMatchedRoutes = (matchedRoutes) => {
         return [
@@ -78,19 +100,19 @@ function Item(props) {
     };
 
     return (
-        <div className="mt-3 container">
-            {console.log(items)}
+        <div className="container">
+            {/*console.log(items)*/}
             {items.length > 0 ?
                 [
                     <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />,
                     <div className="list-title">
-                            <img src={list_title} alt="list-title"></img>
+                        <img src={list_title} alt="list-title"></img>
                     </div>,
                     <div className="row">
-                            {items}
+                        {items}
                     </div>,
                 ]
-                : <h1>.......</h1>}
+                : <h1 className="text-center">.......</h1>}
 
         </div>
     )

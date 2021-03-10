@@ -3,15 +3,22 @@
 $middle-black: #232323;
 
 body {
-    font-family: 'TradeGothicW01-BoldCn20 675334',Arial,'微软雅黑','黑体',Helvetica,SimHei,sans-serif;
+    font-family: "Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    .bg-dark {
+        background-color: #212529 !important;
+    }
 }
-////
 
 footer {
     text-align: center;
     color: rgb(139, 139, 139);
 }
 ////
+
+.show > .dropdown-menu {
+    display: block;
+    position: absolute;
+}
 
 .wrap {
     height: 100%;
@@ -58,7 +65,7 @@ footer {
     }
 }
 
-.nav-menu {
+/*.nav-menu {
     width: 290px;
     height: 100vh;
     float: left;
@@ -72,6 +79,9 @@ footer {
     align-items: center;
     padding-top: 150px;
 }
+.navbar {
+    background-color: #330879;
+}*/
 
 .cart {
     &:hover .drop-down {
@@ -85,7 +95,7 @@ footer {
     width: 260px;
     background-color: white;
     z-index: 5;
-    right: 6%;
+    right: 21%;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 5px 5px 20px 0px rgba(92, 92, 92, 0.4);
@@ -94,14 +104,14 @@ footer {
 }
 
 .row {
-    >.product{
+    > .product {
         .card:hover {
             border: 1px solid rgb(189, 189, 189) !important;
         }
 
         a {
-        color: $middle-black;
-        font-weight: bold;
+            color: $middle-black;
+            font-weight: bold;
             &:hover {
                 color: $middle-black;
                 text-decoration: none;
@@ -134,7 +144,7 @@ footer {
     width: 100%;
 }
 
-.category-list{
+.category-list {
     text-align: center;
     padding-top: 40px;
     a {
@@ -150,3 +160,4 @@ footer {
     display: block;
     object-fit: contain;
 }
+
