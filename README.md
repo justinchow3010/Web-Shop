@@ -1,3 +1,10 @@
 # Web Shop Prototype (Under Development)
 This is a web shop prototype created in React.js and PHP. <br />
-Features including admin panel, add into cart action.
+Features including admin panel, add into cart action. <br />
+Welcome page:
+![image](https://user-images.githubusercontent.com/74143516/111035105-cb20ab80-8453-11eb-9d37-e1053260c50c.png)
+Products list separated by category:
+![image](https://user-images.githubusercontent.com/74143516/111035113-da9ff480-8453-11eb-8624-e8be34f8dcab.png)
+Admin panel used to update or control the database:
+![image](https://user-images.githubusercontent.com/74143516/111035122-e4c1f300-8453-11eb-99dd-0eae2efb97f8.png)
+
