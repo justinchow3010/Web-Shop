@@ -27,10 +27,11 @@ export default function Layout(props) {
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link to="/backend/admin" className="nav-link">Admin Panel</Link>
+                                <Link to="/backend/login" className="nav-link">Admin Panel</Link>
                             </li>
                         </ul>
-                        <div className="my-2 my-lg-0">
+                        <div className="my-2 my-lg-0 d-flex">
+                            <Link className="mr-3 text-dark login-nav">Login</Link>
                             <ShoppingCart />
                         </div>
                     </div>

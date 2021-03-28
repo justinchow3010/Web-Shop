@@ -1,4 +1,5 @@
 Please enusure Node.js is installed.
+Please do not use Edge or IE to open the web.
 
 Run "npm start" in the terminal in this directory in order to start the website.
 
@@ -19,7 +20,7 @@ Under src folder:
 For Assignment 1,
 I used SCSS (a CSS preproccessor, an extension of CSS3) instead of CSS as it is more user-friendly. But you can still find the related style sheets for CSS under the CSS folder.
 
-I used shoes category as the main page.
+I used shoes category as the main page. (updated)
 
 This row number of list of product will change wil it shrink to mobile size.
 
@@ -49,7 +50,11 @@ I configure all the corresponding filed and should be working as needed. Regardi
 However, the router has taken it as a link and I lead it to a not found page. For example like, /admin ,a folder in var/www/html, it will show not found in the page which will show "......".
 
 
-Please contact me if any problems arise.
+For Assignment 3,
+
+Instead of AJAX, I used axios which is a promise based HTTP client request. It also serves asynchronous effect. All the shopping cart relavent code is placed in the shopping_cart.js. The pid and quantity is stored in the localstorage as "pid" and "quan" for convenience.
+
+Please contact me if any problems or questions arise.
 
 **************************************************************************************************
 # Getting Started with Create React App

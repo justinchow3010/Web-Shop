@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Main, Product, Admin, ProductPage } from './pages';
+import { Main, Product, Admin, ProductPage, Login } from './pages';
 const rootPath = process.env.PUBLIC_URL;
 
 const routes = [
@@ -13,6 +13,11 @@ const routes = [
     path: `${rootPath}/backend/admin`,
     exact: true,
     component: Admin
+  },
+  {
+    path: `${rootPath}/backend/login`,
+    exact: true,
+    component: Login
   },
   {
     path: `${rootPath}/:catid`,

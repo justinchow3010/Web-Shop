@@ -92,10 +92,11 @@ footer {
 .drop-down {
     position: absolute;
     display: none;
-    width: 260px;
+    width: 330px;
     background-color: white;
     z-index: 5;
-    right: 21%;
+    //top: 55px;
+    right: 20%;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 5px 5px 20px 0px rgba(92, 92, 92, 0.4);
@@ -161,3 +162,12 @@ footer {
     object-fit: contain;
 }
 
+.login-box {
+    margin-bottom: 550px;
+}
+
+.login-nav {
+    &:hover {
+        text-decoration: none;
+    }
+}

@@ -170,6 +170,7 @@ export default class Admin extends React.Component {
             <div className="container">
                 <div className="py-5 text-center">
                     <h2>Admin Panel</h2>
+                    <h6 className="text-danger">*items must be filled in</h6>
                 </div>
                 <div className="row">
                     <div className="col-md-6 order-md-1">

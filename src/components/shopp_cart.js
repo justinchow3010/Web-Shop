@@ -84,6 +84,23 @@ export default class ShoppingCart extends React.Component {
         }
     }
 
+    removeItem(index) {
+        var tmpParse = [...this.state.parseCartList];
+        var tmpRaw = [...this.state.rawCartList];
+        var items = this.getLocalStorage();
+        tmpParse.splice(index, 1);
+        tmpRaw.splice(index, 1);
+        items.splice(index, 1);
+        localStorage.removeItem("cart");
+        localStorage.setItem("cart", JSON.stringify(items));
+        this.setState({
+            parseCartList : tmpParse,
+            rawCartList : tmpRaw
+        }, () => {
+            this.calTotalPrice();
+        });
+    }
+
     componentDidMount() {
         var items = this.getLocalStorage();
         this.setState({
@@ -119,8 +136,9 @@ export default class ShoppingCart extends React.Component {
                                 if (this.state.rawCartList.length > 0) {
                                     return <tr>
                                         <td>{data.name}</td>
-                                        <td><input type="number" className="item-input" placeholder={this.state.rawCartList.length > 0 ? this.state.rawCartList[index].quan : ""} onChange={this.changeQuan} name={this.state.rawCartList.length > 0 ? this.state.rawCartList[index].pid : ""} value={this.state.rawCartList.length > 0 ? this.state.rawCartList[index].quan : ""} min="0"></input></td>
+                                        <td><input type="number" className="item-input" placeholder={this.state.rawCartList.length > 0 ? this.state.rawCartList[index].quan : ""} onChange={this.changeQuan} name={this.state.rawCartList.length > 0 ? this.state.rawCartList[index].pid : ""} value={this.state.rawCartList.length > 0 ? this.state.rawCartList[index].quan : ""} min="1"></input></td>
                                         <td>${data.price}</td>
+                                        <td><button className="btn btn-danger ml-2" onClick={() => {this.removeItem(index)}}>Delete</button></td>
                                     </tr>
                                 }
                             })}
