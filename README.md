@@ -8,3 +8,5 @@ Products list separated by category:
 Admin panel used to update or control the database:
 ![image](https://user-images.githubusercontent.com/74143516/111035122-e4c1f300-8453-11eb-99dd-0eae2efb97f8.png)
 
+Update:  
+Currently constructing a login logout feature and a fully workable payment feature, enhancing security and improving users' experience.
