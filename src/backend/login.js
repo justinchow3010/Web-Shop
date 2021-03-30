@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 //login page
 export default function Login(props) {
     var [email, setEmail] = useState("");
     var [pw, setPw] = useState("");
+    var checkCookie = true;
+    var [error, setError] = useState("");
 
     function handleLogin(e) {
         e.preventDefault();
         if (email === "" || pw === "") {
-            alert("Please enter all information");
+            setError("Please enter all information");
         } else {
             var url = "/admin/login.php"
             let formData = new FormData();
@@ -18,13 +21,12 @@ export default function Login(props) {
             formData.append("password", pw);
             axios.post(url, formData)
                 .then(res => {
-                    console.log(res.data);
-                    console.log(res.data["status"] );
+                    //console.log(res.data);
+                    //console.log(res.data["status"]);
                     if (res.data["status"] === "successful") {
-                        alert("login")
-                        window.location("/");
+                        window.location.replace("/");
                     } else if (res.data["status"] === "failed") {
-                        alert("There is somethin wrong with your input.")
+                        setError(res.data["message"]);
                     }
                 })
                 .catch(err => { console.log(err.data) });
@@ -39,9 +41,24 @@ export default function Login(props) {
         }
     }
 
+    useEffect(() => {
+        axios.get("/admin/login.php")
+            .then((res) => {
+                if (res.data[0] === "notLoggedIn") {
+                    checkCookie = false;
+                } else {
+                    checkCookie = true;
+                }
+                if (checkCookie) {
+                    window.location.replace("/");
+                }
+            })
+    }, [])
+
     return (
-        <div className="container text-center login-box">
+        <div className="container text-center">
             <h1 className="py-5">Please Login</h1>
+            {error ? <h4 className="text-danger mb-5">{error}</h4> : <div></div>}
             <div className="row">
                 <div className="col-md-12">
                     <div>
@@ -56,8 +73,8 @@ export default function Login(props) {
                             <input type="password" onChange={handleInput}></input>
                         </div>
                     </div>
-                    <div className="mt-3">
-                        <button className="btn btn-dark" name="action" value="login" onClick={handleLogin}>Login</button>
+                    <div className="mt-3 login-box">
+                        <button className="btn btn-dark" onClick={handleLogin}>Login</button>
                     </div>
                 </div>
             </div>

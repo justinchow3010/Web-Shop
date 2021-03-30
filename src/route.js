@@ -1,8 +1,10 @@
 import { useParams } from 'react-router-dom';
-import { Main, Product, Admin, ProductPage, Login } from './pages';
+import { Main, Product, Admin, ProductPage, Login, ResetPassword } from './pages';
+import axios from 'axios';
+
 const rootPath = process.env.PUBLIC_URL;
 
-const routes = [
+var routes = [
   {
     path: `${rootPath}/`,
     component: Main,
@@ -20,6 +22,11 @@ const routes = [
     component: Login
   },
   {
+    path: `${rootPath}/backend/reset`,
+    exact: true,
+    component: ResetPassword
+  },
+  {
     path: `${rootPath}/:catid`,
     component: ProductPage,
     breadcrumbName: "Category",
@@ -33,11 +40,8 @@ const routes = [
     ]
   },
   {
-    path : "*"
+    path: "*"
   }
 ];
-
-
-
 
 export default routes;

@@ -7,6 +7,8 @@ import ShoppingCart from '../shopp_cart'
 //layout
 export default function Layout(props) {
     const [list, setList] = useState([]);
+    const [userName, setName] = useState("");
+    const [flag, setFlag] = useState(0);
 
     useEffect(() => {
         const url = "/admin/category.php";
@@ -16,8 +18,27 @@ export default function Layout(props) {
                 setList(res.data);
             })
             .catch(error => console.log(error));
-        console.log(list);
+        //console.log(list);
+
+        axios.get("/admin/login.php", { params: { userName: "check" } })
+            .then(res => {
+                setName(res.data[0]);
+                setFlag(res.data[1]);
+            })
+            .catch(error => console.log(error));
     }, [])
+
+    function handleLogout(e) {
+        e.preventDefault();
+        axios.get("/admin/login.php", { params: { "logout": "true" } })
+            .then(res => {
+                if (res.data === "successful") {
+                    window.location.replace("/");
+                } else if (res.data === "failed") {
+                    alert("Failed to logout.");
+                }
+            })
+    }
 
     return (
         <div className={props.className}>
@@ -27,13 +48,26 @@ export default function Layout(props) {
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link to="/backend/login" className="nav-link">Admin Panel</Link>
+                                {
+                                    flag === "1"
+                                        ? <Link to="/backend/admin" className="nav-link">Admin Panel</Link>
+                                        : <div />
+                                }
                             </li>
                         </ul>
-                        <div className="my-2 my-lg-0 d-flex">
-                            <Link className="mr-3 text-dark login-nav">Login</Link>
-                            <ShoppingCart />
-                        </div>
+
+                        {
+                            userName
+                                ? <div className="my-2 my-lg-0 d-flex">
+                                    <div className="mr-3">{userName}</div>
+                                    <Link className="mr-3 text-dark login-nav" onClick={handleLogout}>Logout</Link>
+                                    <Link to="/backend/reset" className="mr-3 text-dark login-nav">Reset Password</Link>
+                                    <ShoppingCart />
+                                </div>
+                                : <div className="my-2 my-lg-0 d-flex"><Link to="/backend/login" className="mr-3 text-dark login-nav">Guest Login</Link>
+                                    <ShoppingCart />
+                                </div>
+                        }
                     </div>
                 </div>
             </nav>
