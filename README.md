@@ -10,5 +10,5 @@ Admin panel used to update or control the database:
 
 Update:  
 Currently constructing a login logout feature and a fully workable payment feature, enhancing security and improving users' experience.
-
+##### !!!Login feature and session maintenace is released. Security features are also enhanced already.!!!
 ### As this website is constrcuted using Amazon EC2 with limited credtis, please contact me via the gmail in my resume if you want to visit the website.
