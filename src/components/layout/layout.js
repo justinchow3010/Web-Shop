@@ -64,7 +64,9 @@ export default function Layout(props) {
                                     <Link to="/backend/reset" className="mr-3 text-dark login-nav">Reset Password</Link>
                                     <ShoppingCart />
                                 </div>
-                                : <div className="my-2 my-lg-0 d-flex"><Link to="/backend/login" className="mr-3 text-dark login-nav">Guest Login</Link>
+                                : <div className="my-2 my-lg-0 d-flex">
+                                    <div className="mr-3">Guest</div>
+                                    <Link to="/backend/login" className="mr-3 text-dark login-nav">Login</Link>
                                     <ShoppingCart />
                                 </div>
                         }

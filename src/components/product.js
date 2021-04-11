@@ -39,18 +39,24 @@ export default function Product(props) {
 
     return (
         <div className="container">
-            <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />
-            {list.map((info, index) => {
-                return <div className="product-info d-flex">
-                    <img src={`data:image/png;base64,${info.image}`} alt="Shoe" className="content-img"></img>
-                    <div className="ml-4">
-                        <h2>{info.name}</h2>
-                        <p>Price: ${info.price}</p>
-                        <AddToCartButon pid={id} />
-                        <div>Description: <p>{info.description}</p> </div>
+            {
+                list.length > 0
+                    ? <div>
+                        <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />
+                        {list.map((info, index) => {
+                            return <div className="product-info d-flex">
+                                <img src={`data:image/png;base64,${info.image}`} alt="Shoe" className="content-img"></img>
+                                <div className="ml-4">
+                                    <h2>{info.name}</h2>
+                                    <p>Price: ${info.price}</p>
+                                    <AddToCartButon pid={id} />
+                                    <div>Description: <p>{info.description}</p> </div>
+                                </div>
+                            </div>
+                        })}
                     </div>
-                </div>
-            })}
+                    : <h1 className="text-center mt-5 mb-5">......</h1>
+            }
         </div>
     )
 }

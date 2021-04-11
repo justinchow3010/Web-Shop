@@ -19,12 +19,11 @@ export default function ResetPassword(props) {
             .then(res => {
                 if (res.data["status"] === "successful") {
                     alert(res.data["message"]);
-                    window.location.replace("/");
                     axios.get("/admin/login.php", { params: { "logout": "true" } })
-                        .then(res => {
-                            if (res.data === "successful") {
+                        .then(ress => {
+                            if (ress.data === "successful") {
                                 window.location.replace("/");
-                            } else if (res.data === "failed") {
+                            } else if (ress.data === "failed") {
                                 alert("Failed to logout.");
                             }
                         })

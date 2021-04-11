@@ -101,7 +101,6 @@ function Item(props) {
 
     return (
         <div className="container">
-            {/*console.log(items)*/}
             {items.length > 0 ?
                 [
                     <BreadCrumb locationPathname={props.location.pathname} onMatchedRoutes={onMatchedRoutes} />,

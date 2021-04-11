@@ -54,6 +54,12 @@ For Assignment 3,
 
 Instead of AJAX, I used axios which is a promise based HTTP client request. It also serves asynchronous effect. All the shopping cart relavent code is placed in the shopping_cart.js. The pid and quantity is stored in the localstorage as "pid" and "quan" for convenience.
 
+
+For Assignment 4,
+To maintain the login session, I used cookies here but not PHP session. To protect against CSRF, I used to default XSRF feature in axios as I use axios for all of my request.
+To protect against XSS, I used htmlspecialchars() in PHP.
+TO protect against PHP injection, I used prepared statements in PHP.
+
 Please contact me if any problems or questions arise.
 
 **************************************************************************************************

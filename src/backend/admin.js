@@ -134,7 +134,7 @@ export default class Admin extends React.Component {
                             <h4 className="mb-3">New Product</h4>
                             <form>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Category*</label>
+                                    <label htmlFor="username">Category<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <select className="custom-select" name="productCatid" onChange={this.handleInput}>
                                             <option value="default">Choose...</option>
@@ -145,13 +145,13 @@ export default class Admin extends React.Component {
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Name*</label>
+                                    <label htmlFor="username">Name<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" name="ProductName" placeholder="Name" required="" onChange={this.handleInput}></input>
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Price*</label>
+                                    <label htmlFor="username">Price (at most 2 decimal place)<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" name="price" placeholder="Price" required="" onChange={this.handleInput}></input>
                                     </div>
@@ -163,7 +163,7 @@ export default class Admin extends React.Component {
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Image*</label>
+                                    <label htmlFor="username">Image<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">Upload</span>
@@ -188,7 +188,7 @@ export default class Admin extends React.Component {
                             <h4 className="mb-3">New Category</h4>
                             <form>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Name*</label>
+                                    <label htmlFor="username">Name<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" id="CategoryName" placeholder="Name" required="" name="CategoryName" onChange={this.handleInput}></input>
                                     </div>
@@ -203,7 +203,7 @@ export default class Admin extends React.Component {
                             <h4 className="mb-3">Delete Product</h4>
                             <form>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Choose one</label>
+                                    <label htmlFor="username">Choose one<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <select className="custom-select" name="productId" onChange={this.handleInput}>
                                             <option value="default">Choose...</option>
@@ -244,7 +244,7 @@ export default class Admin extends React.Component {
                             <form>
                                 <div className="mb-3">
                                     <p>Fill in all infomation or it will get empty.</p>
-                                    <label htmlFor="username">Which one to change?</label>
+                                    <label htmlFor="username">Which one to change?<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <select className="custom-select" name="toChange" onChange={this.handleInput}>
                                             <option value="default">Choose...</option>
@@ -255,13 +255,13 @@ export default class Admin extends React.Component {
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Name*</label>
+                                    <label htmlFor="username">Name<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" name="ProductName" placeholder="Name" required="" onChange={this.handleInput}></input>
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Price*</label>
+                                    <label htmlFor="username">Price (at most 2 decimal place)<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" name="price" placeholder="Price" required="" onChange={this.handleInput}></input>
                                     </div>
@@ -273,14 +273,14 @@ export default class Admin extends React.Component {
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Image*</label>
+                                    <label htmlFor="username">Image<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">Upload</span>
                                         </div>
                                         <div className="custom-file">
                                             <input type="file" className="custom-file-input" name="image" onChange={this.handleInput}></input>
-                                            {this.state.image == "" ? <label className="custom-file-label" htmlFor="image">Choose one</label> : <label className="custom-file-label" htmlFor="image">{this.state.image.name}</label>}
+                                            {this.state.image == "" ? <label className="custom-file-label" htmlFor="image"><span className="text-danger">*</span></label> : <label className="custom-file-label" htmlFor="image">{this.state.image.name}</label>}
                                         </div>
                                     </div>
                                     <div>
@@ -298,7 +298,7 @@ export default class Admin extends React.Component {
                             <h4 className="mb-3">Update Category</h4>
                             <form>
                                 <div className="mb-3">
-                                    <label htmlFor="username">Choose one</label>
+                                    <label htmlFor="username">Choose one<span className="text-danger">*</span></label>
                                     <div className="input-group">
                                         <select className="custom-select" name="toChange" onChange={this.handleInput}>
                                             <option value="default">Choose...</option>
