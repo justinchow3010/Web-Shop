@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Main, Product, Admin, ProductPage, Login, ResetPassword } from './pages';
+import { Main, Product, Admin, ProductPage, Login, ResetPassword, Orders } from './pages';
 import axios from 'axios';
 
 const rootPath = process.env.PUBLIC_URL;
@@ -25,6 +25,16 @@ var routes = [
     path: `${rootPath}/backend/reset`,
     exact: true,
     component: ResetPassword
+  },
+  {
+    path: `${rootPath}/orders`,
+    exact: true,
+    component: Orders
+  },
+  {
+    path: `${rootPath}/orders/:id`,
+    component: Orders,
+    exact: true,
   },
   {
     path: `${rootPath}/:catid`,

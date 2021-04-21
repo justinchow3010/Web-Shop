@@ -121,9 +121,12 @@ export default class ShoppingCart extends React.Component {
                 this.setState({
                     custom: res.data["custom"],
                     invoice: res.data["invoice"]
+                }, () => {
+                    console.log(this.state.custom);
+                    console.log(this.state.invoice);
+                    e.target.submit();
+                    localStorage.removeItem("cart");
                 });
-                e.target.submit();
-                localStorage.removeItem("cart");
                 //window.location.replace("/");
             })
             .catch(error => { console.log(error) });
@@ -145,7 +148,7 @@ export default class ShoppingCart extends React.Component {
             listener.remove();
         }
     }
-
+//action="https://www.sandbox.paypal.com/us/cgi-bin/webscr"
     render() {
         return (
             <div className="cart">

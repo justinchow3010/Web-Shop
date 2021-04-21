@@ -54,8 +54,14 @@ export default function Layout(props) {
                                         : <div />
                                 }
                             </li>
+                            <li className="nav-item">
+                                {
+                                    userName
+                                        ? <Link to="/orders" className="nav-link">My orders</Link>
+                                        : <div />
+                                }
+                            </li>
                         </ul>
-
                         {
                             userName
                                 ? <div className="my-2 my-lg-0 d-flex">
