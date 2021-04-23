@@ -27,8 +27,8 @@ function Order(props) {
                 username = res.data[0];
                 axios.get("/admin/orders.php", { params: { username: username } })
                 .then(result => {
-                    setList(result.data["custom"].map((data, index) => {
-                        return <li class="list-group-item"><Link to={`/orders/${data["custom"]}`}>{data["custom"]}</Link></li>
+                    setList(result.data["invoice"].map((data, index) => {
+                        return <li class="list-group-item"><Link to={`/orders/${data["invoice"]}`}>{data["invoice"]}</Link></li>
                     }))
                 })
             })
@@ -53,15 +53,18 @@ function OrderPage(props) {
     var [list, setList] = useState([]);
     var [price, setPrice] = useState(0);
     const { order, id } = useParams();
-
+    
     useEffect(() => {
         console.log("id" + id);
+        var totalPrice = 0;
         axios.get("/admin/orders.php", { params: { id: id } })
             .then(res => {
-                setList(res.data.map(data => {
-                    <li class="list-group-item">Name: {data["products"]}  Price: {data["products"]["price"]} Quantity: {data["products"]["quan"]}</li>
+                setList(res.data["message"].map(data => {
+                    totalPrice += parseFloat(data["price"], 10);
+                    return <li class="list-group-item">Product Name: {data["product_name"]}  Quantity: {data["quantity"]} Price: ${data["price"]}</li>
                 }))
-                setPrice(res.data["price"]);
+                console.log(totalPrice);
+                setPrice(totalPrice);
             })
     }, [])
 
@@ -73,7 +76,7 @@ function OrderPage(props) {
                 <ul class="list-group list-group-flush">
                     {list}
                 </ul>
-                <h2>Total Price: {price}</h2>
+                <h2>Total Price: ${price}</h2>
             </div>
         </div>
     )

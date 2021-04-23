@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 //admin page
 export default class Admin extends React.Component {
@@ -17,13 +18,14 @@ export default class Admin extends React.Component {
             productId: 0,
             action: "",
             toChange: "",
-            image: []
+            image: [],
+            orders: []
         };
     }
 
     componentWillMount() {
         var url = "/admin/login.php";
-        axios.get(url, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN'})
+        axios.get(url, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN' })
             .then(res => {
                 if (res.data[0] === "notLoggedIn") {
                     window.location.replace("/");
@@ -34,6 +36,25 @@ export default class Admin extends React.Component {
                 }
             })
             .catch(error => console.log(error));
+
+        axios.get("/admin/orders.php", { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN' })
+            .then(res => {
+                if (res.data["status"] === "successful") {
+                    this.setState({
+                        orders: res.data["message"].map((data, index) => {
+                            return <tr>
+                                <th scope="row">{index}</th>
+                                <td>{data.username}</td>
+                                <td><Link to={`/orders/${data.invoice}`}>{data.invoice}</Link></td>
+                                <td>{data.custom}</td>
+                            </tr>
+                        })
+                    });
+                } else if (res.data["status"] === "failed") {
+                    alert(res.data["message"]);
+                }
+            })
+            .catch(err => console.log(err));
     }
 
     componentDidMount() {
@@ -42,7 +63,7 @@ export default class Admin extends React.Component {
 
     fetchData() {
         var url = "/admin/category.php";
-        axios.get(url, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN'})
+        axios.get(url, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN' })
             .then(res => {
                 console.log(res.data);
                 this.setState({ catList: res.data });
@@ -50,7 +71,7 @@ export default class Admin extends React.Component {
             .catch(error => console.log(error));
 
         url = "/admin/product.php";
-        axios.get(url, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN'})
+        axios.get(url, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN' })
             .then(res => {
                 console.log(res.data);
                 this.setState({ productList: res.data });
@@ -81,7 +102,7 @@ export default class Admin extends React.Component {
         formData.append("category", this.state.productCatid);
         formData.append("toChange", this.state.toChange);
         const url = "/admin/category.php";
-        axios.post(url, formData, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN'})
+        axios.post(url, formData, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN' })
             .then(res => {
                 if (res.data["status"] === "successful") {
                     alert(res.data["message"]);
@@ -108,7 +129,7 @@ export default class Admin extends React.Component {
         formData.append("toChange", this.state.toChange);
         formData.append("image", this.state.image);
         const url = "/admin/product.php";
-        axios.post(url, formData, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN'})
+        axios.post(url, formData, { xsrfCookieName: 'XSRF-TOKEN', xtxsrfHeaderName: 'X-XSRF-TOKEN' })
             .then(res => {
                 if (res.data["status"] === "successful") {
                     alert(res.data["message"]);
@@ -315,6 +336,20 @@ export default class Admin extends React.Component {
                             </form>
                         </div>
                     </div>
+                    <h4 className="mb-3">Order records</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">username</th>
+                                <th scope="col">invoice</th>
+                                <th scope="col">custom</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.orders}
+                        </tbody>
+                    </table>
                 </div>
             );
         } else {
