@@ -23,7 +23,7 @@ export default function breadCrumb(props) {
         matchedRoutes = props.onMatchedRoutes(matchedRoutes);
     }
     
-    console.log(matchedRoutes);
+    //console.log(matchedRoutes);
     return (
         <Breadcrumb className="mb-20">
             {matchedRoutes.map((matchRoute, i) => {

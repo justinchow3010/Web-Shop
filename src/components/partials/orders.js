@@ -55,15 +55,18 @@ function OrderPage(props) {
     const { order, id } = useParams();
     
     useEffect(() => {
-        console.log("id" + id);
+        //console.log("id" + id);
         var totalPrice = 0;
         axios.get("/admin/orders.php", { params: { id: id } })
             .then(res => {
                 setList(res.data["message"].map(data => {
-                    totalPrice += parseFloat(data["price"], 10);
-                    return <li class="list-group-item">Product Name: {data["product_name"]}  Quantity: {data["quantity"]} Price: ${data["price"]}</li>
+                    totalPrice += parseFloat(data["price"], 10) * parseFloat(data["quantity"], 10);
+                    if (!data["payment_status"]) {
+                        data["payment_status"] = "pending";
+                    }
+                    return <li class="list-group-item">Product Name: {data["product_name"]}  Quantity: {data["quantity"]} Price: ${data["price"]} Status: {data["payment_status"]}</li>
                 }))
-                console.log(totalPrice);
+                //console.log(totalPrice);
                 setPrice(totalPrice);
             })
     }, [])

@@ -47,6 +47,8 @@ export default class Admin extends React.Component {
                                 <td>{data.username}</td>
                                 <td><Link to={`/orders/${data.invoice}`}>{data.invoice}</Link></td>
                                 <td>{data.custom}</td>
+                                <td>{data.txnid}</td>
+                                <td>{data.payment_status}</td>
                             </tr>
                         })
                     });
@@ -344,6 +346,8 @@ export default class Admin extends React.Component {
                                 <th scope="col">username</th>
                                 <th scope="col">invoice</th>
                                 <th scope="col">custom</th>
+                                <th scope="col">transcation ID</th>
+                                <th scope="col">payment status</th>
                             </tr>
                         </thead>
                         <tbody>

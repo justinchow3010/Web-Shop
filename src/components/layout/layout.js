@@ -14,7 +14,7 @@ export default function Layout(props) {
         const url = "/admin/category.php";
         axios.get(url)
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 setList(res.data);
             })
             .catch(error => console.log(error));

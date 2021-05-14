@@ -33,7 +33,7 @@ export default class ShoppingCart extends React.Component {
         this.state.parseCartList.map((data, index) => {
             total += parseFloat(data.price, 10) * this.state.rawCartList[index].quan;
         })
-        console.log(total);
+        //console.log(total);
         this.setState({
             totalPrice: total
         })
@@ -50,10 +50,10 @@ export default class ShoppingCart extends React.Component {
     getLocalStorage() {
         var items = [];
         var json = localStorage.getItem("cart");
-        console.log(json);
+        //console.log(json);
         if (json !== null) {
             JSON.parse(json).map((data, i) => {
-                console.log(data);
+                //console.log(data);
                 items.push(data);
             })
         }
@@ -63,7 +63,7 @@ export default class ShoppingCart extends React.Component {
     changeQuan = e => {
         var json = localStorage.getItem("cart");
         var items = [];
-        console.log(e.target.name);
+        //console.log(e.target.name);
         if (json !== null) {
             JSON.parse(json).map((data, i) => {
                 if (data.pid !== e.target.name) {
@@ -114,7 +114,7 @@ export default class ShoppingCart extends React.Component {
                 upload[id] = this.state.rawCartList[i].quan;
             }
         };
-        console.log(upload);
+        //console.log(upload);
         formData.append("upload", JSON.stringify(upload));
         axios.post("/admin/checkout_process.php", formData)
             .then(res => {
@@ -122,8 +122,8 @@ export default class ShoppingCart extends React.Component {
                     custom: res.data["custom"],
                     invoice: res.data["invoice"]
                 }, () => {
-                    console.log(this.state.custom);
-                    console.log(this.state.invoice);
+                    //console.log(this.state.custom);
+                    //console.log(this.state.invoice);
                     e.target.submit();
                     localStorage.removeItem("cart");
                 });
@@ -137,7 +137,7 @@ export default class ShoppingCart extends React.Component {
         this.setState({
             rawCartList: items
         }, () => {
-            console.log("list" + this.state.rawCartList);
+            //console.log("list" + this.state.rawCartList);
             if (this.state.rawCartList.length > 0) {
                 this.getCartInfo();
             }
