@@ -1,4 +1,4 @@
-# Web Shop 
+# GLOBAL Web Shop 
 This is a web shop created in React.js and PHP. <br />
 A fully workable website which includes a set of database, admin panel, add to cart action, login function, shopping history review and pay action via Paypal.  
 
